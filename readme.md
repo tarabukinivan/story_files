@@ -4,8 +4,9 @@ wget -O story_snapshot.sh https://raw.githubusercontent.com/tarabukinivan/story_
 ```
 <h2>Snapshot</h2>
 <p>Every 5 hours</p>
-<p>Latest sanap: Info</p>
+<p>Latest sanap: [Info](https://snapshots.tarabukin.work/story/snap_info.txt)</p>
 <p>Pruning	default, Indexer kv (archive)</p>
+
 ```
 sudo systemctl stop story-testnet.service
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
