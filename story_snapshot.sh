@@ -1,6 +1,6 @@
 #!/bin/bash
 CHAIN_ID="iliad"
-SNAP_PATH="$HOME/snapshots/story"
+SNAP_PATH="/var/www/snapshots/story"
 LOG_PATH="$HOME/snapshots/story/story_log.txt"
 DATA_PATH="$HOME/.story/story/data/"
 SERVICE_NAME="story-testnet.service"
