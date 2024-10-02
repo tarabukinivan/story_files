@@ -1,7 +1,3 @@
-```
-source <(curl -s https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_snapshot.sh)
-wget -O story_snapshot.sh https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_snapshot.sh && chmod a+x story_snapshot.sh
-```
 <h2>Snapshot</h2>
 <p>Every 5 hours</p>
 <p>Latest sanap: [Info](https://snapshots.tarabukin.work/story/snap_info.txt)</p>
