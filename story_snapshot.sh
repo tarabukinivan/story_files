@@ -5,7 +5,7 @@ LOG_PATH="/var/www/snapshots/story/story_log.txt"
 DATA_PATH="$HOME/.story/story/data/"
 SERVICE_NAME="story-testnet.service"
 RPC_ADDRESS="https://story-rpc.tarabukin.work/"
-SNAP_NAME=$(echo "${CHAIN_ID}_$(date '+%Y-%m-%d_%H:%M').tar")
+SNAP_NAME=$(echo "${CHAIN_ID}_latest.tar")
 OLD_SNAP=$(ls ${SNAP_PATH} | egrep -o "${CHAIN_ID}.*tar")
 
 now_date() {
