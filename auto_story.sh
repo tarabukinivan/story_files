@@ -111,6 +111,9 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
+#addrbook
+wget -O $HOME/.story/story/config/addrbook.json "https://snapshots.tarabukin.work/storyfile/addrbook.json"
+
 # enable and start service
 # enable and start geth
 sudo systemctl daemon-reload
