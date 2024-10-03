@@ -1,0 +1,30 @@
+#!/bin/bash
+echo "-----------------------------------------------------------------------------"
+
+binarnik="story"
+nodedir="$HOME/story"
+storyservice="story-testnet.service"
+
+cd $HOME
+rm -rf $nodedir
+git clone https://github.com/piplabs/story
+cd $nodedir
+git checkout v0.10.1
+go build -o story ./client
+
+sleep 1
+
+for((;;)); do
+    height=$(story status |jq .sync_info.latest_block_height |xargs)
+    if ((height == 626575)); then
+      systemctl stop "$binarnik"
+      sudo mv ~/story/story ~/go/bin/
+      sudo systemctl restart "$storyservice"
+      echo "restart"
+      break
+    else
+      echo $height
+    fi
+    sleep 1
+done
+journalctl -u "$storyservice" -f -o cat
