@@ -9,18 +9,22 @@ read -p "Enter your MONIKER :" MONIKER
 echo 'export MONIKER='$MONIKER
 read -p "Enter your PORT (for example 17, default port=26):" STORY_PORT
 echo 'export STORY_PORT='$STORY_PORT
+read -p "Enter your PORT for GETH (for example 88, default port=85):" STORY_PORT_GETH
+echo 'export STORY_PORT_GETH='$STORY_PORT_GETH
 
 # set vars
 echo "export WALLET="$WALLET"" >> $HOME/.bash_profile
 echo "export MONIKER="$MONIKER"" >> $HOME/.bash_profile
 echo "export STORY_CHAIN_ID="iliad"" >> $HOME/.bash_profile
 echo "export STORY_PORT="$PORT"" >> $HOME/.bash_profile
+echo "export STORY_PORT_GETH="$STORY_PORT_GETH"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo -e "Moniker:        \e[1m\e[32m$MONIKER\e[0m"
 echo -e "Wallet:         \e[1m\e[32m$WALLET\e[0m"
 echo -e "Chain id:       \e[1m\e[32m$STORY_CHAIN_ID\e[0m"
 echo -e "Node custom port:  \e[1m\e[32m$STORY_PORT\e[0m"
+echo -e "Node custom port geth:  \e[1m\e[32m$STORY_PORT_GETH\e[0m"
 sleep 1
 
 printGreen "1. Installing go..." && sleep 1
@@ -88,7 +92,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which geth) --iliad --syncmode full --http --http.api eth,net,web3,engine --http.vhosts '*' --http.addr 0.0.0.0 --http.port 8545 --ws --ws.api eth,web3,net,txpool --ws.addr 0.0.0.0 --ws.port 8546
+ExecStart=$(which geth) --iliad --syncmode full --http --http.api eth,net,web3,engine --http.vhosts '*' --http.addr 0.0.0.0 --http.port ${STORY_PORT_GETH}45 --ws --ws.api eth,web3,net,txpool --ws.addr 0.0.0.0 --ws.port ${STORY_PORT_GETH}46
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
