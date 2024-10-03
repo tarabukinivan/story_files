@@ -117,6 +117,24 @@ EOF
 #addrbook
 wget -O $HOME/.story/story/config/addrbook.json "https://snapshots.tarabukin.work/storyfile/addrbook.json"
 
+#archive snapshot
+cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
+rm -rf $HOME/.story/story/data
+cd $HOME/.story/story/
+wget https://snapshots.tarabukin.work/story/iliad_latest.tar
+mkdir data
+tar -xvf iliad_latest.tar -C $HOME/.story/story/data
+rm iliad_latest.tar
+mv $HOME/.story/story/priv_validator_state.json.backup $HOME/.story/story/data/priv_validator_state.json
+
+#geth snapshot
+rm -rf $HOME/.story/geth/iliad/geth/chaindata
+sudo mkdir -p $HOME/.story/geth/iliad/geth/chaindata
+cd $HOME/.story/geth/iliad/geth/chaindata
+wget https://snapshots.tarabukin.work/storygeth/storygeth_latest.tar
+tar -xvf storygeth_latest.tar
+rm storygeth_latest.tar
+
 # enable and start service
 # enable and start geth
 sudo systemctl daemon-reload
@@ -126,18 +144,4 @@ sudo systemctl restart story-testnet-geth.service && sudo journalctl -u story-te
 # enable and start story
 sudo systemctl daemon-reload
 sudo systemctl enable story-testnet.service
- 
-SNAP_RPC="https://story-rpc.tarabukin.work:443"
-LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
-BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
-TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
-
-echo $LATEST_HEIGHT $BLOCK_HEIGHT $TRUST_HASH && sleep 2
-
-sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
-s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$SNAP_RPC,$SNAP_RPC\"| ; \
-s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
-s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"\"|" ~/.story/story/config/config.toml
-
 sudo systemctl start story-testnet.service && sudo journalctl -fu story-testnet.service -o cat
