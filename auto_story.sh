@@ -125,7 +125,7 @@ wget -O $HOME/.story/story/config/addrbook.json "https://snapshots.tarabukin.wor
 # enable and start geth
 sudo systemctl daemon-reload
 sudo systemctl enable story-testnet-geth.service
-sudo systemctl restart story-testnet-geth.service && sudo journalctl -u story-testnet-geth.service -f
+sudo systemctl restart story-testnet-geth.service
 
 # enable and start story
 sudo systemctl daemon-reload
