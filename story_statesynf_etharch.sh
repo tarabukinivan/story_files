@@ -133,7 +133,7 @@ rm storygeth_latest.tar
 # enable and start geth
 sudo systemctl daemon-reload
 sudo systemctl enable story-testnet-geth.service
-sudo systemctl restart story-testnet-geth.service && sudo journalctl -u story-testnet-geth.service -f
+sudo systemctl restart story-testnet-geth.service
 
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 
