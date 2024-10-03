@@ -143,8 +143,7 @@ rm storygeth_latest.tar
 # enable and start geth
 sudo systemctl daemon-reload
 sudo systemctl enable story-testnet-geth.service
-sudo systemctl restart story-testnet-geth.service && sudo journalctl -u story-testnet-geth.service -f
-
+sudo systemctl restart story-testnet-geth.service
 # enable and start story
 sudo systemctl daemon-reload
 sudo systemctl enable story-testnet.service
