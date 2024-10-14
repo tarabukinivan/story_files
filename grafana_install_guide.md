@@ -53,13 +53,39 @@ echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9100/metrics\033[0m"
 wget https://github.com/prometheus/prometheus/releases/download/v3.0.0-beta.0/prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 tar xvf prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 mv prometheus-3.0.0-beta.0.linux-amd64 prometheus
+chmod +x $HOME/prometheus/prometheus
 rm prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 ```
+### prometeus config
+in tagrets add ip address and port from exporter metrics
+```
+nano $HOME/prometheus/prometheus.yml
+```
+![prometeus config]([https://github.com/tarabukinivan/story_files/blob/main/images/prometeusconfig.png?raw=true](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometeusconfig.png))
 
 ### Create service file for Prometheus
-
+```
+sudo tee /etc/systemd/system/prometheusd.service > /dev/null <<EOF
+[Unit]
+Description=prometheus
+After=network-online.target
+[Service]
+User=$USER
+ExecStart=$HOME/prometheus/prometheus \
+--config.file="$HOME/prometheus/prometheus.yml"
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+```
 ### Reload and start Prometheus
-
+```
+sudo systemctl daemon-reload && \
+sudo systemctl enable prometheusd && \
+sudo systemctl restart prometheusd && sudo journalctl -u prometheusd -f
+```
 
 
 ### Reload and start node service
