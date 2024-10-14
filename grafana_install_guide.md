@@ -164,3 +164,10 @@ password: admin <br>
 
 <p>Grafana will ask you to enter a password. Come up with any password.</p>
 
+### Click Dashboard settings
+![dashboard](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/dashboard_settings.png)
+
+<p>delete "JSON Model" completely and paste the settings from here:</p>
+https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_dashboard.json
+
+<p>and save the changes</p>
