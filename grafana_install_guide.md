@@ -164,7 +164,7 @@ password: admin <br>
 
 <p>Grafana will ask you to enter a password. Come up with any password.</p>
 
-### download the dashboard from the link
+### download the dashboard json file from the link
 https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_dashboard.json
 
 ### Click Dashboards
