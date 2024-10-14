@@ -86,7 +86,17 @@ sudo systemctl daemon-reload && \
 sudo systemctl enable prometheusd && \
 sudo systemctl restart prometheusd && sudo journalctl -u prometheusd -f
 ```
+### open prometheus page
+```
+echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9090\033[0m"
+```
+![prometeus page](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometeus_page.png)
 
+### Let's check if the metrics are loading?
+```
+Status > Target health
+```
+![prometeus targets](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometius_targets.png)
 
 ### Reload and start node service
 
