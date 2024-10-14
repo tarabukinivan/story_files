@@ -61,7 +61,7 @@ in tagrets add ip address and port from exporter metrics
 ```
 nano $HOME/prometheus/prometheus.yml
 ```
-![prometeus config]([https://github.com/tarabukinivan/story_files/blob/main/images/prometeusconfig.png?raw=true](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometeusconfig.png))
+![prometeus config](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometeusconfig.png)
 
 ### Create service file for Prometheus
 ```
