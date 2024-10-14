@@ -171,7 +171,5 @@ https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/stor
 ![dashboard](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/dashboards.png)
 
 <p>New > Import</p>
-select the downloaded dashboard
-
-and click 'Import'
+select the downloaded dashboard and press 'Import'
 
