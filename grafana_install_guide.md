@@ -6,15 +6,61 @@ Demo Preview: https://grafana.tarabukin.work/
 * CPU: 2 cores or more
 * Disk Space: At least 20GB free
 
+## Install node exporter
+```
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+tar xvf node_exporter-1.8.2.linux-amd64.tar.gz
+cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin
+node_exporter --version
+rm -r node_exporter-*
+```
+
+### Create service file for node exporter
+```
+sudo tee /etc/systemd/system/exporterd.service > /dev/null <<EOF
+[Unit]
+Description=node_exporter
+After=network-online.target
+[Service]
+User=$USER
+ExecStart=/usr/local/bin/node_exporter
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+reload and run service
+```
+sudo systemctl daemon-reload && \
+sudo systemctl enable exporterd && \
+sudo systemctl restart exporterd && sudo journalctl -u exporterd -f
+```
+
+check if there are metrics
+```
+curl 'localhost:9100/metrics'
+```
+or output the exporter address and check it in the browser
+```
+echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9100/metrics\033[0m"
+```
+![exporter metrics](https://raw.githubusercontent.com/tarabukinivan/story_files/47bb4ce202711cc164004c48f970541d83a543ca/images/exporter_metrics.jpg)
+
 ## Install Prometheus
+```
+wget https://github.com/prometheus/prometheus/releases/download/v3.0.0-beta.0/prometheus-3.0.0-beta.0.linux-amd64.tar.gz
+tar xvf prometheus-3.0.0-beta.0.linux-amd64.tar.gz
+mv prometheus-3.0.0-beta.0.linux-amd64 prometheus
+rm prometheus-3.0.0-beta.0.linux-amd64.tar.gz
+```
 
 ### Create service file for Prometheus
 
 ### Reload and start Prometheus
 
-## Install node exporter
 
-### Create service file for node exporter
 
 ### Reload and start node service
 
