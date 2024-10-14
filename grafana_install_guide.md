@@ -98,10 +98,15 @@ Status > Target health
 ```
 ![prometeus targets](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometius_targets.png)
 
-### Reload and start node service
+## Install pushgateway
 
-## Setup Prometheus config
+## let's add our own metrics for the story node
+```
+wget -O $HOME/prometheus/story_exporter.py "https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_exporter.py"
+```
+### let's make a service for it and launch it
 
+### Let's change the settings of Prometheus
 ```
 nano $HOME/prometheus/prometheus.yml
 ```
@@ -138,3 +143,24 @@ sudo systemctl status prometheusd.service
 ```
 
 ## Install Grafana
+```
+sudo apt-get install -y adduser libfontconfig1 musl
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise_11.2.2_amd64.deb
+sudo dpkg -i grafana-enterprise_11.2.2_amd64.deb
+```
+launch grafana
+```
+sudo systemctl daemon-reload && \
+sudo systemctl enable grafana-server && \
+sudo systemctl restart grafana-server && sudo journalctl -u grafana-server -f
+```
+
+### open grafana page
+```
+echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):3000\033[0m"
+```
+username: admin <br>
+password: admin <br>
+
+<p>Grafana will ask you to enter a password. Come up with any password.</p>
+
