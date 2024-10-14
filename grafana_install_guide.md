@@ -164,10 +164,14 @@ password: admin <br>
 
 <p>Grafana will ask you to enter a password. Come up with any password.</p>
 
-### Click Dashboard settings
-![dashboard](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/dashboard_settings.png)
-
-<p>delete "JSON Model" completely and paste the settings from here:</p>
+### download the dashboard from the link
 https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_dashboard.json
 
-<p>and save the changes</p>
+### Click Dashboards
+![dashboard](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/dashboards.png)
+
+<p>New > Import</p>
+select the downloaded dashboard
+
+and click 'Import'
+
