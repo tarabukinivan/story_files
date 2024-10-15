@@ -11,6 +11,7 @@ Demo Preview: https://grafana.tarabukin.work/
 wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar xvf node_exporter-1.8.2.linux-amd64.tar.gz
 cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin
+chmod +x /usr/local/bin/node_exporter
 node_exporter --version
 rm -r node_exporter-*
 ```
@@ -50,6 +51,7 @@ echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9100/metrics\033[0m"
 
 ## Install Prometheus
 ```
+cd $HOME
 wget https://github.com/prometheus/prometheus/releases/download/v3.0.0-beta.0/prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 tar xvf prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 mv prometheus-3.0.0-beta.0.linux-amd64 prometheus
@@ -99,13 +101,77 @@ Status > Target health
 ![prometeus targets](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/prometius_targets.png)
 
 ## Install pushgateway
+```
+wget https://github.com/prometheus/pushgateway/releases/download/v1.10.0/pushgateway-1.10.0.linux-amd64.tar.gz
+tar zxvf pushgateway-*.tar.gz
+cp pushgateway-*/pushgateway /usr/local/bin/
+useradd --no-create-home --shell /bin/false pushgateway
+chown pushgateway:pushgateway /usr/local/bin/pushgateway
+```
+### Create pushgateway service
+```
+sudo tee /etc/systemd/system/pushgateway.service > /dev/null <<EOF
+[Unit]
+Description=Pushgateway Service
+After=network.target
+
+[Service]
+User=pushgateway
+Group=pushgateway
+Type=simple
+ExecStart=/usr/local/bin/pushgateway \
+    --web.listen-address=":9091" \
+    --web.telemetry-path="/metrics" \
+    --persistence.file="/tmp/metric.store" \
+    --persistence.interval=5m \
+    --log.level="info" \
+    --log.format="json"
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+### Starting pushgateway
+```
+systemctl daemon-reload
+systemctl enable pushgateway --now
+systemctl status pushgateway
+```
 
 ## let's add our own metrics for the story node
+Install dependenses
+```
+sudo apt-get install python3-pip
+pip install prometheus_client
+pip install requests
+```
+download
 ```
 wget -O $HOME/prometheus/story_exporter.py "https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_exporter.py"
 ```
-### let's make a service for it and launch it
-
+### let's make a service for it 
+```
+sudo tee /etc/systemd/system/storyexporter.service > /dev/null <<EOF
+[Unit]
+Description=Storyb Exporter
+After=network-online.target
+[Service]
+User=$USER
+ExecStart=/usr/bin/python3 $HOME/prometheus/story_exporter.py
+WorkingDirectory=$HOME/prometheus/
+Restart=Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+### launch
+```
+sudo systemctl daemon-reload && \
+sudo systemctl enable storyexporter.service && \
+sudo systemctl restart storyexporter.service && sudo journalctl -u storyexporter.service -f
+```
 ### Let's change the settings of Prometheus
 ```
 nano $HOME/prometheus/prometheus.yml
@@ -135,12 +201,20 @@ scrape_configs:
       - targets: ['localhost:9091']
 ```
 
-restart prometeus
+restart all services
 
 ```
 sudo systemctl restart  prometheusd.service
 sudo systemctl status prometheusd.service
+sudo systemctl status pushgateway
+sudo systemctl restart storyexporter.service
+sudo systemctl restart exporterd && sudo journalctl -u exporterd -f
 ```
+and check pushgateway
+```
+echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9091\033[0m"
+```
+![pushgateway](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/pushgatewaymetrics.png)
 
 ## Install Grafana
 ```
