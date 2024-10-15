@@ -268,5 +268,100 @@ Connection > Data sources > Add data source
 
 ![grafana](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafana.png)
 
+## Alert Manajer
 
+```
+wget -O $HOME/prometheus/rules.yml https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/rules.yml
+nano $HOME/prometheus/prometheus.yml
+```
+Adding lines
+```
+rule_files:
+  - 'rules.yml'
 
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - localhost:9093
+```
+<p>We check the created rules. The output should be #SUCCESS</p>
+```
+$HOME/prometheus/promtool check rules $HOME/prometheus/rules.yml
+```
+And restart prometeus
+```
+systemctl restart prometheusd && systemctl status prometheusd
+```
+### Install binaries
+
+```
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
+tar -zxf alertmanager-0.26.0.linux-amd64.tar.gz
+
+cp alertmanager-0.26.0.linux-amd64/alertmanager /usr/local/bin/
+cp alertmanager-0.26.0.linux-amd64/amtool /usr/local/bin/
+
+cp alertmanager-0.26.0.linux-amd64/alertmanager.yml $HOME/prometheus
+
+chmod +x $HOME/prometheus/alertmanager.yml
+chmod +x $HOME/prometheus/rules.yml
+
+chmod +x /usr/local/bin/alertmanager
+chmod +x /usr/local/bin/amtool
+```
+Delete unnecessary files
+```
+cd
+rm -r alertmanager-*
+```
+
+Setting up alertmanager.yml
+
+```
+nano $HOME/prometheus/alertmanager.yml
+```
+Insert your CHAT_ID and BOT_TOKEN
+```
+global:
+  resolve_timeout: 10s
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 15s
+  repeat_interval: 60m
+  receiver: 'telegram_bot'
+
+receivers:
+- name: 'telegram_bot'
+  telegram_configs:
+  - bot_token: 'BOT_TOKEN'
+    api_url: 'https://api.telegram.org'
+    chat_id: CHAT_ID
+    parse_mode: ''
+```
+### Create service for alertmanager
+
+```
+tee /etc/systemd/system/alertmanager.service > /dev/null <<EOF
+[Unit]
+Description=alertmanager
+After=network.target
+
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/local/bin/alertmanager --config.file=$HOME/prometheus/alertmanager.yml --log.level=debug
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+Run
+```
+systemctl daemon-reload
+systemctl enable alertmanager
+systemctl restart alertmanager && systemctl status alertmanager
+journalctl -u alertmanager -f -o cat
+```
