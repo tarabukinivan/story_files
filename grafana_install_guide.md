@@ -385,3 +385,11 @@ Check the status alert manager in the browser
 ```
 echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9093/\033[0m"
 ```
+
+<p>If alerts have worked for Grafana, you can see them in Alerting -> Alert rules </p>
+
+![alertGrafana](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafanaalert1.png)
+
+<p>And if you filled in BOT_TOKEN and CHAT_ID correctly, the messages will come to Telegram</p>
+
+![alertTg](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/alerttg.png)
