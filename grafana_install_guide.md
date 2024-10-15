@@ -250,4 +250,5 @@ select the downloaded dashboard and press 'Import'
 ### Add Data Source
 Connection > Data sources > Add data source
 <p>We select prometheus and specify the address of our prometheus</p>
-![datasource](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafanadatasource.png)
+
+![datasource add](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafanadatasource.png)
