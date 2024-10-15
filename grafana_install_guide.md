@@ -268,7 +268,7 @@ Connection > Data sources > Add data source
 
 ![grafana](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafana.png)
 
-## Alert Manajer
+## Alert Manager
 
 ```
 wget -O $HOME/prometheus/rules.yml https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/rules.yml
