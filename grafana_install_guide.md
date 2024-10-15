@@ -147,10 +147,13 @@ sudo apt-get install python3-pip
 pip install prometheus_client
 pip install requests
 ```
-download
+download exporter
 ```
 wget -O $HOME/prometheus/story_exporter.py "https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/story_exporter.py"
 ```
+<p>let's set this up</p>
+<p>You need to run your Valoper and RPC from the node.</p>
+![valoperrpc](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/ValoperRpc.png)
 ### let's make a service for it 
 ```
 sudo tee /etc/systemd/system/storyexporter.service > /dev/null <<EOF
