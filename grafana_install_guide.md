@@ -252,3 +252,7 @@ Connection > Data sources > Add data source
 <p>We select prometheus and specify the address of our prometheus</p>
 
 ![datasource add](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafanadatasource.png)
+
+<p>Save. It should turn out succes</p>
+
+![succes](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/successdashboard.png)
