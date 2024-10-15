@@ -263,3 +263,10 @@ Connection > Data sources > Add data source
 <p>Save. It should turn out succes</p>
 
 ![succes](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/successdashboard.png)
+
+## Let's open our dashboard. Voila.
+
+![grafana](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/grafana.png)
+
+
+
