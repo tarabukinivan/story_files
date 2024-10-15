@@ -272,9 +272,11 @@ Connection > Data sources > Add data source
 
 ```
 wget -O $HOME/prometheus/rules.yml https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/rules.yml
+
 nano $HOME/prometheus/prometheus.yml
 ```
 Adding lines
+
 ```
 rule_files:
   - 'rules.yml'
@@ -285,14 +287,19 @@ alerting:
     - targets:
       - localhost:9093
 ```
+
 <p>We check the created rules. The output should be #SUCCESS</p>
+
 ```
 $HOME/prometheus/promtool check rules $HOME/prometheus/rules.yml
 ```
+
 And restart prometeus
+
 ```
 systemctl restart prometheusd && systemctl status prometheusd
 ```
+
 ### Install binaries
 
 ```
@@ -310,7 +317,9 @@ chmod +x $HOME/prometheus/rules.yml
 chmod +x /usr/local/bin/alertmanager
 chmod +x /usr/local/bin/amtool
 ```
+
 Delete unnecessary files
+
 ```
 cd
 rm -r alertmanager-*
@@ -321,7 +330,9 @@ Setting up alertmanager.yml
 ```
 nano $HOME/prometheus/alertmanager.yml
 ```
+
 Insert your CHAT_ID and BOT_TOKEN
+
 ```
 global:
   resolve_timeout: 10s
@@ -341,6 +352,7 @@ receivers:
     chat_id: CHAT_ID
     parse_mode: ''
 ```
+
 ### Create service for alertmanager
 
 ```
@@ -358,13 +370,16 @@ ExecStart=/usr/local/bin/alertmanager --config.file=$HOME/prometheus/alertmanage
 WantedBy=multi-user.target
 EOF
 ```
+
 Run
+
 ```
 systemctl daemon-reload
 systemctl enable alertmanager
 systemctl restart alertmanager && systemctl status alertmanager
 journalctl -u alertmanager -f -o cat
 ```
+
 Check the status alert manager in the browser
 
 ```
