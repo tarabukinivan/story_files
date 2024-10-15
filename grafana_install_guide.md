@@ -365,3 +365,8 @@ systemctl enable alertmanager
 systemctl restart alertmanager && systemctl status alertmanager
 journalctl -u alertmanager -f -o cat
 ```
+Check the status alert manager in the browser
+
+```
+echo -e "\033[0;32mhttp://$(wget -qO- eth0.me):9093/\033[0m"
+```
