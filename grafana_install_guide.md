@@ -60,7 +60,7 @@ mv prometheus-3.0.0-beta.0.linux-amd64 prometheus
 chmod +x $HOME/prometheus/prometheus
 rm prometheus-3.0.0-beta.0.linux-amd64.tar.gz
 ```
-### prometeus config
+### Prometheus config
 in tagrets add ip address and port from exporter metrics
 ```
 nano $HOME/prometheus/prometheus.yml
