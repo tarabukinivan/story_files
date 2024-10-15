@@ -156,6 +156,7 @@ wget -O $HOME/prometheus/story_exporter.py "https://raw.githubusercontent.com/ta
 <p>let's set this up</p>
 <p>You need to run your Valoper and RPC from the node.</p>
 ![valoperrpc](https://raw.githubusercontent.com/tarabukinivan/story_files/refs/heads/main/images/ValoperRpc.png)
+
 ### let's make a service for it 
 ```
 sudo tee /etc/systemd/system/storyexporter.service > /dev/null <<EOF
