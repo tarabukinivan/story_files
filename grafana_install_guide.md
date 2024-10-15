@@ -1,5 +1,6 @@
 # Task3: Guide to Setting Up Grafana Dashboard for Node Monitoring
 Demo Preview: https://grafana.tarabukin.work/ 
+<p>Usually only Node Exporter is used on a server with a node. But in our example everything will be on one server</p>
 ## System Requirements
 * Operating System: Ubuntu 20.04 LTS or newer
 * RAM: Minimum 2GB
