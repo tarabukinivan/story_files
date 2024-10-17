@@ -54,6 +54,8 @@ wget -O geth https://github.com/piplabs/story-geth/releases/download/v0.9.4/geth
 chmod +x geth
 mv $HOME/bin/geth ~/go/bin/
 
+rm -rf ~/.story/story
+rm -rf ~/.story/geth
 mkdir -p ~/.story/story
 mkdir -p ~/.story/geth
 
