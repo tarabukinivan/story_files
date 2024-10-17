@@ -47,13 +47,13 @@ sudo apt install curl git wget htop tmux build-essential jq make lz4 gcc unzip -
 
 printGreen "4. Installing binary..." && sleep 1
 # download binary
-cd $HOME
 rm -rf bin
 mkdir bin
 cd bin
-wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/geth-public/geth-linux-amd64-0.9.3-b224fdf.tar.gz
-tar -xvzf geth-linux-amd64-0.9.3-b224fdf.tar.gz
-mv ~/bin/geth-linux-amd64-0.9.3-b224fdf/geth ~/go/bin/
+wget -O geth https://github.com/piplabs/story-geth/releases/download/v0.9.4/geth-linux-amd64
+chmod +x geth
+mv $HOME/bin/geth ~/go/bin/
+
 mkdir -p ~/.story/story
 mkdir -p ~/.story/geth
 
