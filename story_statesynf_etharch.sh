@@ -3,8 +3,6 @@
 # Step 1: Update and Upgrade
 sudo apt update && sudo apt upgrade -y
 
-read -p "Enter WALLET name:" WALLET
-echo 'export WALLET='$WALLET
 read -p "Enter your MONIKER :" MONIKER
 echo 'export MONIKER='$MONIKER
 read -p "Enter your PORT (for example 17, default port=26):" STORY_PORT
@@ -13,7 +11,6 @@ read -p "Enter your PORT for GETH (for example 88, default port=85):" STORY_PORT
 echo 'export STORY_PORT_GETH='$STORY_PORT_GETH
 
 # set vars
-echo "export WALLET="$WALLET"" >> $HOME/.bash_profile
 echo "export MONIKER="$MONIKER"" >> $HOME/.bash_profile
 echo "export STORY_CHAIN_ID="iliad"" >> $HOME/.bash_profile
 echo "export STORY_PORT="$PORT"" >> $HOME/.bash_profile
@@ -21,7 +18,6 @@ echo "export STORY_PORT_GETH="$STORY_PORT_GETH"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo -e "Moniker:        \e[1m\e[32m$MONIKER\e[0m"
-echo -e "Wallet:         \e[1m\e[32m$WALLET\e[0m"
 echo -e "Chain id:       \e[1m\e[32m$STORY_CHAIN_ID\e[0m"
 echo -e "Node custom port:  \e[1m\e[32m$STORY_PORT\e[0m"
 echo -e "Node custom port geth:  \e[1m\e[32m$STORY_PORT_GETH\e[0m"
