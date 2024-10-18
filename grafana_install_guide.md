@@ -8,6 +8,16 @@ Demo Preview: https://grafana.tarabukin.work/
 * CPU: 2 cores or more
 * Disk Space: At least 20GB free
 
+## Enable Promethius on the node
+```
+nano $HOME/.story/story/config/config.toml
+```
+<p>Ensure that the Prometheus endpoint is enabled:</p>
+```
+prometheus = true
+prometheus_listen_addr = 26660
+```
+restart Story node
 ## Install node exporter
 ```
 wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
