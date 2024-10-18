@@ -28,6 +28,7 @@ restart Story node
 wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 tar xvf node_exporter-1.8.2.linux-amd64.tar.gz
 cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin
+cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/bin
 chmod +x /usr/local/bin/node_exporter
 node_exporter --version
 rm -r node_exporter-*
