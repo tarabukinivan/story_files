@@ -221,6 +221,9 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['localhost:9091']
+  - job_name: "storynode"
+    static_configs:
+      - targets: ["<your-ip>:26660"]
 ```
 
 restart all services
