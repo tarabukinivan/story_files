@@ -134,10 +134,7 @@ sudo systemctl restart story-testnet-geth.service
 
 cp $HOME/.story/story/data/priv_validator_state.json $HOME/.story/story/priv_validator_state.json.backup
 
-story tendermint unsafe-reset-all --home $HOME/.story/story
-peers="6127cdd105667912f3953eb9fd441ad5043dbda8@167.235.39.5:26656"  
 SNAP_RPC="https://story-rpc.tarabukin.work:443"
-sed -i.bak -e  "s/^persistent_peers *=.*/persistent_peers = \"$peers\"/" ~/.story/story/config/config.toml
 LATEST_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height); \
 BLOCK_HEIGHT=$((LATEST_HEIGHT - 2000)); \
 TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
