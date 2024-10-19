@@ -13,7 +13,7 @@ echo 'export STORY_PORT_GETH='$STORY_PORT_GETH
 # set vars
 echo "export MONIKER="$MONIKER"" >> $HOME/.bash_profile
 echo "export STORY_CHAIN_ID="iliad"" >> $HOME/.bash_profile
-echo "export STORY_PORT="$PORT"" >> $HOME/.bash_profile
+echo "export STORY_PORT="$STORY_PORT"" >> $HOME/.bash_profile
 echo "export STORY_PORT_GETH="$STORY_PORT_GETH"" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
